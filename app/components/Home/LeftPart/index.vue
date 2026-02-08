@@ -93,71 +93,10 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Home,
-  Search,
-  Bell,
-  MessageCircle,
-  Bookmark,
-  Users,
-  Video,
-  Music,
-  Gamepad2,
-} from 'lucide-vue-next';
+import { menuItems, recentActivity, trendingTopics, recentVisits } from '~/constants';
 
 const searchQuery = ref('');
 const activeMenu = ref('/');
-
-const menuItems = [
-  { label: 'Home', path: '/', icon: Home },
-  { label: 'Explore', path: '/explore', icon: Search },
-  { label: 'Notifications', path: '/notifications', icon: Bell, badge: '3' },
-  { label: 'Messages', path: '/messages', icon: MessageCircle, badge: '12' },
-  { label: 'Bookmarks', path: '/bookmarks', icon: Bookmark },
-  { label: 'Communities', path: '/communities', icon: Users },
-  { label: 'Live', path: '/live', icon: Video },
-  { label: 'Music', path: '/music', icon: Music },
-  { label: 'Gaming', path: '/gaming', icon: Gamepad2 },
-];
-
-const trendingTopics = [
-  { tag: 'WebDevelopment', posts: 12.4 },
-  { tag: 'AIRevolution', posts: 8.9 },
-  { tag: 'DesignTips', posts: 5.2 },
-  { tag: 'TechNews', posts: 7.8 },
-  { tag: 'StartupLife', posts: 4.1 },
-];
-
-const recentVisits = [
-  {
-    id: 1,
-    name: 'Sarah Miller',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
-    lastVisit: '2h ago',
-    isOnline: true,
-  },
-  {
-    id: 2,
-    name: 'Mike Chen',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mike',
-    lastVisit: '1d ago',
-    isOnline: false,
-  },
-  {
-    id: 3,
-    name: 'Emma Wilson',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma',
-    lastVisit: '3h ago',
-    isOnline: true,
-  },
-  {
-    id: 4,
-    name: 'David Park',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
-    lastVisit: '5h ago',
-    isOnline: false,
-  },
-];
 
 function searchTrend(tag: string) {
   searchQuery.value = `#${tag}`;

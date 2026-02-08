@@ -54,22 +54,22 @@
                 class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition"
                 @click="toggleLike(post.id)"
               >
-                <Heart class="size-5" :class="{ 'fill-red-500 text-red-500': post.liked }" />
+                <lucide-heart class="size-5" :class="{ 'fill-red-500 text-red-500': post.liked }" />
                 <span>{{ post.likes }}</span>
               </button>
   
               <button class="flex items-center gap-2 text-gray-500 hover:text-primary transition">
-                <MessageCircle class="size-5" />
+                <lucide-message-circle class="size-5" />
                 <span>{{ post.comments }}</span>
               </button>
   
               <button class="flex items-center gap-2 text-gray-500 hover:text-green-500 transition">
-                <Repeat2 class="size-5" />
+                <lucide-repeat class="size-5" />
                 <span>{{ post.shares }}</span>
               </button>
   
               <button class="flex items-center gap-2 text-gray-500 hover:text-yellow-500 transition">
-                <Bookmark class="size-5" :class="{ 'fill-yellow-500': post.bookmarked }" />
+                <lucide-bookmark class="size-5" :class="{ 'fill-yellow-500': post.bookmarked }" />
               </button>
             </div>
           </div>
@@ -90,43 +90,8 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Home,
-  Search,
-  Plus,
-  Bell,
-  User,
-  Image,
-  Smile,
-  MapPin,
-  Heart,
-  MessageCircle,
-  Repeat2,
-  Bookmark,
-  MoreVertical,
-  X,
-  Users,
-  Video,
-  Music,
-  Gamepad2,
-  Loader2,
-} from 'lucide-vue-next';
-
-const route = useRoute();
 const activeTab = ref('for-you');
-const newPostContent = ref('');
-const mediaPreview = ref<string | null>(null);
-
 const loading = ref(false);
-
-const unreadNotifications = ref(3);
-
-const feedTabs = [
-  { id: 'for-you', label: 'For You' },
-  { id: 'following', label: 'Following' },
-  { id: 'trending', label: 'Trending' },
-];
-
 const posts = ref([
   {
     id: 1,
@@ -143,13 +108,12 @@ const posts = ref([
     shares: 18,
     liked: true,
     bookmarked: false,
-    timestamp: new Date(Date.now() - 3600000), // 1 hour ago
+    timestamp: new Date(Date.now() - 3600000), 
   },
 ]);
-
 const filteredPosts = computed(() => {
   if (activeTab.value === 'following') {
-    return posts.value.filter((post) => post.verified); // Example filter
+    return posts.value.filter((post) => post.verified); 
   }
   if (activeTab.value === 'trending') {
     return [...posts.value].sort((a, b) => b.likes - a.likes);
@@ -177,41 +141,10 @@ function toggleLike(postId: number) {
   }
 }
 
-function toggleNotifications() {
-  unreadNotifications.value = 0;
-}
-
-function createPost() {
-  if (!newPostContent.value.trim()) return;
-
-  const newPost = {
-    id: posts.value.length + 1,
-    name: 'John Doe',
-    username: 'johndoe',
-    verified: false,
-    avatar: 'https://github.com/shadcn.png',
-    content: newPostContent.value,
-    image: mediaPreview.value || null,
-    likes: 0,
-    comments: 0,
-    shares: 0,
-    liked: false,
-    bookmarked: false,
-    timestamp: new Date(),
-  };
-
-  posts.value.unshift(newPost);
-  newPostContent.value = '';
-  mediaPreview.value = null;
-}
-
 function showImageLightbox(imageUrl: string) {
   console.log('Show image lightbox:', imageUrl);
 }
 
-function toggleMediaUpload() {
-  console.log('Toggle media upload');
-}
 
 function loadMorePosts() {
   loading.value = true;
